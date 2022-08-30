@@ -9,7 +9,7 @@ namespace NovikovWPFLibraryApp.ViewModels
 {
     internal class MainWindowViewModel : ViewModel
     {
-		private string _Title;
+		private string _Title = "Title";
 
 		public string Title
 		{
