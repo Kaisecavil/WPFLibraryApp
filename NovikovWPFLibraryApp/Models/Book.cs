@@ -8,6 +8,14 @@ namespace NovikovWPFLibraryApp.Models
 {
     internal class Book
     {
+        private int _id;
+
+        public int Id
+        {
+            get { return _id; }
+            set { _id = value; }
+        }
+
         private string _firstName;
 
         public string FirstName

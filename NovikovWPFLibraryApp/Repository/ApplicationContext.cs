@@ -12,7 +12,7 @@ namespace NovikovWPFLibraryApp.Repository
         /// <summary>
         /// DbSet (Table) that contains entities of <seealso cref="Book"/> type.
         /// </summary>
-        public DbSet<Book> Players => Set<Book>();
+        public DbSet<Book> Books => Set<Book>();
 
         /// <summary>
         /// Constructor that ensures that data base is exist

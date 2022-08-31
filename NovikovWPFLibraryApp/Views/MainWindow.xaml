@@ -5,11 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:l="clr-namespace:NovikovWPFLibraryApp"
         xmlns:vm="clr-namespace:NovikovWPFLibraryApp.ViewModels"
+        xmlns:cmd="clr-namespace:NovikovWPFLibraryApp.Infrastructure.Commands"
         mc:Ignorable="d"
         Title="{Binding Title}" Height="450" Width="800">
     <Window.DataContext>
         <vm:MainWindowViewModel></vm:MainWindowViewModel>
     </Window.DataContext>
+    <Window.Resources>
+        <cmd:CloseAplicationCommnand x:Key="CloseAplicationCommnand"/>
+    </Window.Resources>
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="File">
@@ -21,7 +25,7 @@
             </MenuItem>
             <MenuItem Header="Application">
                 <MenuItem Header="Help"></MenuItem>
-                <MenuItem Header="Exit" Command="{Binding CloseApplicationCommand}"></MenuItem>
+                <MenuItem Header="Exit static res" Command="{StaticResource CloseAplicationCommnand}"/>
             </MenuItem>
         </Menu>
         <StatusBar DockPanel.Dock="Bottom">
@@ -34,9 +38,18 @@
         </StatusBar>
         <TabControl>
             <TabItem Header="Data Grid">
-                <Grid>
-                    
-                </Grid>
+                <DockPanel>
+                    <DataGrid Margin="0,50,0,0" ItemsSource="{Binding BookCollection}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Author first name"  IsReadOnly="True" Width="*" Binding="{Binding FirstName}"/>
+                            <DataGridTextColumn Header="Author second name" IsReadOnly="True"  Width="*" Binding="{Binding SecondName}"/>
+                            <DataGridTextColumn Header="Author sur Name"  IsReadOnly="True" Width="*" Binding="{Binding SurName}"/>
+                            <DataGridTextColumn Header="Author birth date"  IsReadOnly="True" Width="*" Binding="{Binding BirthDate}"/>
+                            <DataGridTextColumn Header="Book name"  IsReadOnly="True" Width="*" Binding="{Binding BookName}"/>
+                            <DataGridTextColumn Header="Book year"  IsReadOnly="True" Width="0.5*" Binding="{Binding BookYear}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </DockPanel>
             </TabItem>
             <TabItem Header="Page 2"></TabItem>
         </TabControl>

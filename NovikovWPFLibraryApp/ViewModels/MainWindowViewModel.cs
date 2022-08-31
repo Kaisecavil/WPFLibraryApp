@@ -1,7 +1,10 @@
 ﻿using NovikovWPFLibraryApp.Infrastructure.Commands;
+using NovikovWPFLibraryApp.Models;
+using NovikovWPFLibraryApp.Repository;
 using NovikovWPFLibraryApp.ViewModels.Base;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -13,48 +16,47 @@ namespace NovikovWPFLibraryApp.ViewModels
 {
     internal class MainWindowViewModel : ViewModel
     {
-        private string _Title = "Library App";
+        private string _title = "Library App";
 
         public string Title
         {
-            get { return _Title; }
+            get { return _title; }
             set
             {
-                Set(ref _Title, value);
+                Set(ref _title, value);
             }
         }
 
-        private string _Status = "Ready";
+        private string _status = "Ready";
 
         public string Status
         {
-            get { return _Status; }
+            get { return _status; }
             set
             {
-                Set(ref _Status, value);
+                Set(ref _status, value);
             }
         }
 
-        #region commands
-        public ICommand CloseApplicationCommand { get; }
+        private List<Book> _bookCollection;
 
-        private void OnCloseApplicationCommandExecuted(object obj)
+        public List<Book> BookCollection
         {
-            Application.Current.Shutdown();
+            get { return _bookCollection; }
+            set
+            {
+                Set(ref _bookCollection, value);
+            }
         }
 
-        private bool CanCloseApplicationCommandExecuted(object obj)
-        {
-            return true;
-        }
-        #endregion
+        
+
 
         public MainWindowViewModel()
         {
-            #region commands
-            CloseApplicationCommand = new LambdaCommand(OnCloseApplicationCommandExecuted, CanCloseApplicationCommandExecuted);
-            #endregion
+            GenericRepository<Book> repository = new GenericRepository<Book>(new ApplicationContext());
+            var books = repository.GetAll().ToList();
+            BookCollection = books;
         }
-
     }
 }
